@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 
  //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Permet de décuplé le lien de la route pour le debut de chaqu'une de nos routes sur notre fichier stuff.js (prérmet d'éviter de récrire '/api/stuff' sur chaqu'une des routes)
-app.use('/api/books', stuffRoutes);
+app.use('/api', stuffRoutes);
 app.use('/api/auth', userRoutes);
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Exportation de notra Application au fichier server

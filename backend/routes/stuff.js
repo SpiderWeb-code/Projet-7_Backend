@@ -4,10 +4,10 @@ const auth = require('../middleware/auth'); // Import correct du middleware d'au
 
 const stuffCtrl = require('../controllers/stuff');
 
-router.get('/', auth, stuffCtrl.getAllStuff);
-router.post('/', auth, stuffCtrl.createThing);
-router.get('/:id', auth, stuffCtrl.getOneThing);
-router.put('/:id', auth, stuffCtrl.modifyThing);
-router.delete('/:id', auth, stuffCtrl.deleteThing);
+router.get('/books', auth, stuffCtrl.getAllStuff);
+router.post('/books', auth, stuffCtrl.createThing);
+router.get('/books/:id', auth, stuffCtrl.getOneThing);
+router.put('/books/:id', auth, stuffCtrl.modifyThing);
+router.delete('/books/:id', auth, stuffCtrl.deleteThing);
 
 module.exports = router
