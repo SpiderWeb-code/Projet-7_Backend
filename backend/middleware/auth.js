@@ -11,10 +11,11 @@ module.exports = (req, res, next) => {
         
         // Décode le token JWT avec la clé secrète
         const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+        const userId = decodedToken.userId
 
         // Extrait l'ID de l'utilisateur du token décodé et l'ajoute à l'objet de requête pour une utilisation ultérieure dans les contrôleurs de route
         req.auth = {
-            userId: decodedToken.userId
+            userId: userId
         };
 
         // Appelle la fonction next() pour passer au middleware ou au contrôleur de route suivant

@@ -16,7 +16,7 @@ exports.signup = (req, res, next) => {
         .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
         .catch(error => {
             console.error("Une erreur s'est produite :", error);
-            res.status(500).json({ error: "Une erreur s'est produite lors du traitement de la demande." });
+            res.status(400).json({ error: "Une erreur s'est produite lors du traitement de la demande." });
         });
     })
     .catch(error => {
@@ -33,7 +33,7 @@ exports.login = (req, res, next) => {
             res.status(401).json({message: 'Paire identifiant/ mot de passe incorecte'})
         }else{
             //Compare le mots de passe crypté envoyer et celui dans la base de données
-            bycrypt.compare(req.body.password, user.password)
+            bcrypt.compare(req.body.password, user.password)
             .then(valid => {
                 if(!valid){
                     res.status(401).json({message: 'Paire identifiant/ mot de passe incorecte'})
