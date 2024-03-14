@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 // jsonwebtoken: Permet de crée un token crypté et de le vérifier
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+require('dotenv').config();
 
 //Crée un compte
 exports.signup = (req, res, next) => {
@@ -65,6 +66,7 @@ exports.login = (req, res, next) => {
                         // Prmet de encodée des données
                         token: jwt.sign(
                             { userId: user._id },
+                            // Va chercher la Clé d'autorisation dans le fichier sécurisé (.env)
                             process.env.CLE_SECRETE,
                             { expiresIn: '24h' }
                         )

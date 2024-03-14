@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+//Schema création d'un objet
 const thingSchema = mongoose.Schema({
   userId: { type: String, required: true },
   title: { type: String, required: true },

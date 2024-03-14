@@ -4,7 +4,9 @@ const app = express();
 const mongoose = require('mongoose');
 const stuffRoutes = require('./routes/stuff');
 const userRoutes = require('./routes/user');
+//Package qui permet d'éviter le spam des requête au serveur
 const rateLimit = require('express-rate-limit');
+require('dotenv').config();
 
 // connexion à ma base de données
 //`mongodb+srv://leiroz26:${process.env.MDP_BDD}@bddmonvieuxgrimoire.rnsqoxc.mongodb.net/?retryWrites=true&w=majority`

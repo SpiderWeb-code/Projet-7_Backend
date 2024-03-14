@@ -1,5 +1,6 @@
 const http = require('http');
 const app = require('./App');
+require('dotenv').config();
 
 
 // renvoi d'un port valide
