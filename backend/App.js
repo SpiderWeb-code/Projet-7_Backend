@@ -10,7 +10,7 @@ require('dotenv').config();
 
 // connexion à ma base de données
 //`mongodb+srv://leiroz26:${process.env.MDP_BDD}@bddmonvieuxgrimoire.rnsqoxc.mongodb.net/?retryWrites=true&w=majority`
-mongoose.connect(`mongodb+srv://SharkO:qWPipuED7pcujQyD@cluster0.n7cz2me.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`,
+mongoose.connect(`mongodb+srv://SharkO:qWPipuED7pcujQyD@cluster0.n7cz2me.mongodb.net/grimoire?retryWrites=true&w=majority&appName=Cluster0`,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
