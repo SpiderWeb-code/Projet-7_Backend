@@ -5,24 +5,45 @@ const User = require('../models/User');
 
 //Crée un compte
 exports.signup = (req, res, next) => {
-    console.log("Signup function called");
-    bcrypt.hash(req.body.password, 10)
-    .then(hash => {
-        const user = new User({
-            email: req.body.email,
-            password: hash
-        });
-        user.save()
-        .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
-        .catch(error => {
-            console.error("Une erreur s'est produite :", error);
-            res.status(400).json({ error: "Une erreur s'est produite lors du traitement de la demande." });
-        });
+    const { email, password } = req.body;
+
+    // Vérification de l'e-mail valide
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ message: 'Veuillez entrer une adresse e-mail valide.' });
+    }
+    
+    // Vérification de la longueur minimale du mot de passe
+    if (password.length < 4) {
+        return res.status(400).json({ message: 'Le mot de passe doit comporter au moins 4 caractères.' });
+    }
+    // Vérification chiffre et majuscule
+    const passwordRegex = /^(?=.*\d)(?=.*[A-Z])/;
+    if (!passwordRegex.test(password)) {
+        return res.status(400).json({ message: 'Le mot de passe doit contenir au moins un chiffre et une majuscule.' });
+    }
+    
+    User.findOne({ email })
+    .then(user => {
+        if(user !== null) {
+            res.status(401).json({ message: 'Utilisateur déja enregistré ! Veuillez vous connecter !' });
+        } else {
+            // hachage du mot de passe 10 fois
+            bcrypt.hash(req.body.password, 10)
+            .then(hash => {
+            // Création de la nouvelle instance de User
+            const user = new User({
+                email: email,
+                password: hash,
+            });
+            // Sauvegarder du nouvelle user dans la BDD
+            user.save()
+            .then(() => res.status(201).json({ message: 'utilisateur créé !'}))
+            .catch(error => res.status(400).json({ error }))
+            })
+        }
     })
-    .catch(error => {
-        console.error("Error hashing password:", error);
-        res.status(500).json({ error });
-    });
+    .catch(error => res.status(500).json({ error }));
 };
 //Se connecter
 exports.login = (req, res, next) => {
@@ -44,7 +65,7 @@ exports.login = (req, res, next) => {
                         // Prmet de encodée des données
                         token: jwt.sign(
                             { userId: user._id },
-                            'RANDOM_TOKEN_SECRET',
+                            process.env.CLE_SECRETE,
                             { expiresIn: '24h' }
                         )
                     });
