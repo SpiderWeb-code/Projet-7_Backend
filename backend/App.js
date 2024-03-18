@@ -22,7 +22,7 @@ const limiter = rateLimit({
   message: 'Trop de requêtes effectuées. Réessayer plus tard.'
 });
 
-//app.use(limiter);
+app.use(limiter);
 
 // Nous mets à disposition le contenu de toutes les requetes qui contiennet du JSON
 app.use(express.json());
