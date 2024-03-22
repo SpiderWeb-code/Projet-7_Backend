@@ -19,7 +19,7 @@ exports.signup = (req, res, next) => {
         return res.status(400).json({ message: 'Le mot de passe doit comporter au moins 4 caractères.' });
     }
     // Vérification chiffre et majuscule
-    const passwordRegex = /^(?=.*\d)(?=.*[A-Z])/;
+    const passwordRegex = /(?=.*[A-Z])(?=.*\W)/;
     if (!passwordRegex.test(password)) {
         return res.status(400).json({ message: 'Le mot de passe doit contenir au moins un chiffre et une majuscule.' });
     }
